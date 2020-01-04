@@ -15,6 +15,8 @@
 # > python mmiopt_longestest1.0.py filename
 #                                  ^^^^^^^^int or float valuses square matrix
 #                                          of comma delimitered TSP Input file.
+#
+#                                        developer "Ryota Tanaka"
 import numpy as np
 import csv
 import sys

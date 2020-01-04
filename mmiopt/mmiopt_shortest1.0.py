@@ -1,4 +1,4 @@
-#coding: UTF-8
+#coding: UTF-8calculation elapsed time
 # Maximum Mean Initialize and 2-opt. \
 # -> MMI-OPT
 #   this version is approximataly solve "shortest path" from TSP Input.
@@ -15,6 +15,8 @@
 # > python mmiopt_shortest1.0.py filename
 #                                ^^^^^^^^int or float valuses square matrix
 #                                         of comma delimitered TSP Input file.
+#
+#                                        developer "Ryota Tanaka"
 import numpy as np
 import csv
 import sys
@@ -138,7 +140,7 @@ def main():
      print("ansedge = ",ansedge)
      itr-=1
      t = time.time() - start
-     print("elapsed time="+str(t))
+     print("calculation elapsed time="+str(t))
    #while itr end   
 
 def calc_maxevaindex(data):
@@ -151,7 +153,7 @@ if __name__  == "__main__":
     start = time.time() 
     main() #main処理
     t = time.time() - start
-    print("elapsed time="+str(t))
+    print("total elapsed time="+str(t))
 
   #errorハンドリング
   except IOError as error:
