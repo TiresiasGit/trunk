@@ -1,4 +1,4 @@
-#coding: UTF-8calculation elapsed time
+#coding: UTF-8
 # Maximum Mean Initialize and 2-opt. \
 # -> MMI-OPT
 #   this version is approximataly solve "shortest path" from TSP Input.
