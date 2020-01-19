@@ -12,7 +12,7 @@
 #   numpy  1.16.5
 #
 # How to use this software from command line?
-# > python mmiopt_longestest1.0.py filename
+# > python mmiopt_longestest2.0.py filename
 #                                  ^^^^^^^^int or float valuses square matrix
 #                                          of comma delimitered TSP Input file.
 #
@@ -49,10 +49,10 @@ def main():
      indexes = [i for i, x in enumerate(data[index]) if 0 == flags[i]] #自分と訪問済みを除外したインデックスの集合を得る
      indexes = np.array(indexes)#ndarrayに変換
      xmax = max(data[index,indexes])
-     #maxindex = np.argmax(data[index,indexes])#意図的に探索終了してみる。->結果的に、複数最小値があった場合、エッジ長平均値によるノードの評価を省く方が、良解にたどり着くようだ。2-optでうまく補正できているのだろうか...？(未検証。原因不明。)
+     #maxindex = np.argmax(data[index,indexes])
      maxindexes = [i for i,x in enumerate(data[index,indexes]) if x == xmax] #最小値のインデックスの集合を得る
      if len(maxindexes) > 1:
-       index = np.argmax(dataeva[indexes[maxindexes]])
+       index = np.argmax(dataeva[indexes[maxindexes]])#最大の評価を持つノードを選択する
        index = indexes[maxindexes[index]] #最小値の行(移動先ノード)の中で評価値が最低のノード(スカラのノード番号)を取り出す
      else:
        index = indexes[maxindexes[0]]
