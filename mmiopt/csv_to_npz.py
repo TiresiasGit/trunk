@@ -1,6 +1,6 @@
 #coding: UTF-8
 # How to use this software?
-#  python csv_loader.py InFile.csv OutFile.npz
+#  python csv_to_npz.py InFile.csv OutFile.npz
 
 import csv
 import sys

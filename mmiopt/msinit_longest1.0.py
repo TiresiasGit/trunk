@@ -13,10 +13,10 @@
 #   numpy  1.16.5
 #
 # How to use this software from command line?
-# > python msi_shortest4.0.py filename.npz txt 0.01 single  no2-opt
-#                                         ^^^A solution is output as .npz
-#                            ^^^^^^^^^^^^int or float valuses square matrix
-#                                         of np.savez_compressed(filename.npz,array_=a)
+# > python msinit_longest1.0.py filename.npz txt 0.01 single  no2-opt
+#                                            ^^^A solution is output as .npz
+#                               ^^^^^^^^^^^^int or float valuses square matrix
+#                                           of np.savez_compressed(filename.npz,array_=matrix)
 #                                  type
 #  Input:filename                   int or float 
 #  Output:ansedge.npz or txt        int
