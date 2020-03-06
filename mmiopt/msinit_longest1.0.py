@@ -181,26 +181,17 @@ def main():
 
 
 def calc_minevaindex(data,n):
-   #dataeva = np.mean(data,axis=1)
    minj=data.shape[0]-1
    #before half(row number 0 to n-1 -> sum(0 to n)  (n+1 elements,include 0))
-   #print(data)
    dataeva=[np.sum(data[0:n,:n+1],axis=1)]
-   #print("data[0:n,:n+1]="+str(data[0:n,:n+1]))
-   #after half(row number n to minj -> sum(0 to n-1 (n elements))
-   #print("data[n:minj+1,:n])"+str(data[n:minj+1,:n]))
-   dataeva=np.append(dataeva,np.sum(data[n:minj+1,:n],axis=1))
-   #print(dataeva)
-   #print("data[n:minj+1,:n]="+str(data[n:minj+1,:n])
+   datamax=[np.sum(data[0:n,:n+1],axis=1)]
 
-   #print("i=0 ="+str(dataeva))
-   #print(dataeva)
-   #i=1~minj-1 (To get the line from which a diagonal element was removed.)
-   #print("minj = "+str(minj))
-   #print(str([np.mean(np.append(row[0:(i+1)],row[(i+1)+1:n+1],axis=0)) for i,row in enumerate(data[1:minj])]))
-   #print(str(np.append(dataeva,[np.mean(np.append(row[0:(i+1)],row[(i+1)+1:n+1],axis=0)) for i,row in enumerate(data[1:minj])],axis=0)))
-   #exit()
-   evamin_i=np.argmin(dataeva)
+   #after half(row number n to minj -> sum(0 to n-1 (n elements))
+   dataeva=np.append(dataeva,np.sum(data[n:minj+1,:n],axis=1))
+   datamax=np.append(datamax,np.min(data[n:minj+1,:n],axis=1))
+
+   dataeva_results=1/(1+datamax)*dataeva
+   evamin_i=np.argmin(dataeva_results)
    return evamin_i,dataeva
 
 if __name__  == "__main__":
