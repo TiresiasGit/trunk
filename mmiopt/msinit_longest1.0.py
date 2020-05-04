@@ -35,6 +35,7 @@ def main():
      exit()
    print("start load file!")
    data = np.load(argv[1])['array_']
+   data=np.array(data,dtype='int32')
    print(data)
    print("end load file!")
    start = time.time()
@@ -51,19 +52,20 @@ def main():
    print("start min mean initalize.")
    er=float(argv[3])
    print("er="+str(er))
+   dm1=data.shape[0]-1
    if er < 0.0 or 0.99 < er:
      print("inputed error rate is out of range.")
      exit()
    elif er <=0.0:
-     n=data.shape[0]-1
+     n=dm1
    else:
      n=int((1.96*0.2857884/er)**2)
    print("n="+str(n))
-   if n > data.shape[0]-1:
-      n=data.shape[0]-1
-   index,dataeva = calc_minevaindex(data,n)
+   if n > dm1:
+      n=dm1
+   index,dataeva = calc_minevaindex(data,n,dm1)
    print("end min mean initialize.")
-   flags[index] = 100 #訪問済みにする
+   flags[index] = 0 #訪問済みにする
    ansnode=np.append(ansnode,int(index)) #答えとなるノード番号をキューに入れる
    num = data.shape[0] - 1
    print("start search max edges.")
@@ -82,7 +84,7 @@ def main():
        else:
          index = maxindexes[0]
 
-     flags[index] = 100 #訪問済みにする
+     flags[index] = 0 #訪問済みにする
      ansnode=np.append(ansnode,int(index)) #答えとなるノード番号をキューに入れる
      accumulation += data[beforeindex,index] #累積距離に加算する
      num-=1
@@ -180,8 +182,8 @@ def main():
    print("calculation elapsed time="+str(t))
 
 
-def calc_minevaindex(data,n):
-   minj=data.shape[0]-1
+def calc_minevaindex(data,n,dm1):
+   minj=dm1
    #before half(row number 0 to n-1 -> sum(0 to n)  (n+1 elements,include 0))
    dataeva=[np.sum(data[0:n,:n+1],axis=1)]
    datamax=[np.sum(data[0:n,:n+1],axis=1)]

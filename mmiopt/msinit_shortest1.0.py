@@ -35,6 +35,7 @@ def main():
      exit()
    print("start load file!")
    data = np.load(argv[1])['array_']
+   data=np.array(data,dtype='int32')
    print(data)
    print("end load file!")
    start = time.time()
@@ -51,22 +52,24 @@ def main():
    print("start max mean initalize.")
    er=float(argv[3])
    print("er="+str(er))
+   dm1=data.shape[0]-1
    if er < 0.0 or 0.99 < er:
      print("inputed error rate is out of range.")
      exit()
    elif er <=0.0:
-     n=data.shape[0]-1
+     n=dm1
    else:
      n=int((1.96*0.2857884/er)**2)
    print("n="+str(n))
-   if n > data.shape[0]-1:
-      n=data.shape[0]-1
-   index,dataeva = calc_maxevaindex(data,n)
+   if n > dm1:
+      n=dm1
+   index,dataeva = calc_maxevaindex(data,n,dm1)
    print("end max mean initialize.")
-   flags[index] = 100 #訪問済みにする
+   flags[index] = 100000000 #訪問済みにする
    ansnode=np.append(ansnode,int(index)) #答えとなるノード番号をキューに入れる
-   num = data.shape[0] - 1
+   num = dm1
    print("start search min edges.")
+   
    while num > 0:
      beforeindex = index #ひとつ前のindexとして保持する
      data[index]=np.add(data[index],flags)
@@ -81,8 +84,8 @@ def main():
          index = minindexes[maxdataevai] #minindexesの内、評価値が最大のノード番号を取り出す
        else:
          index = minindexes[0]
-
-     flags[index] = 100 #訪問済みにする
+     
+     flags[index] = 100000000 #訪問済みにする
      ansnode=np.append(ansnode,int(index)) #答えとなるノード番号をキューに入れる
      accumulation += data[beforeindex,index] #累積距離に加算する
      num-=1
@@ -180,8 +183,8 @@ def main():
    print("calculation elapsed time="+str(t))
 
 
-def calc_maxevaindex(data,n):
-   maxj=data.shape[0]-1
+def calc_maxevaindex(data,n,dm1):
+   maxj=dm1
    #before half(row number 0 to n-1 -> sum(0 to n)  (n+1 elements,include 0))
    dataeva=[np.sum(data[0:n,:n+1],axis=1)]
    datamin=[np.min(data[0:n,:n+1],axis=1)]
@@ -197,7 +200,7 @@ def calc_maxevaindex(data,n):
 if __name__  == "__main__":
   try:
     start = time.time() 
-    main() #main処理
+    main()
     t = time.time() - start
     print("total elapsed time="+str(t))
 
